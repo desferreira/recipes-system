@@ -15,17 +15,18 @@ public class Recipe implements Serializable {
     private String title;
     private String description;
     private List<String> ingredients = new ArrayList<>();
-
+    private List<String> likes = new ArrayList<>();
 
     private List<Comment> comments = new ArrayList<>();
 
     public Recipe() {
     }
 
-    public Recipe(String title, String description, List<String> ingredients) {
+    public Recipe(String title, String description, List<String> ingredients, List<String> likes) {
         this.title = title;
         this.description = description;
         this.ingredients = ingredients;
+        this.likes = likes;
     }
 
     public String getId() {
@@ -68,17 +69,46 @@ public class Recipe implements Serializable {
         this.comments = comments;
     }
 
+    public void addComment(Comment comment){
+        this.comments.add(comment);
+    }
+
+    public void removeComment(Comment comment){
+        this.comments.remove(comment);
+    }
+
+    public List<String> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<String> likes) {
+        this.likes = likes;
+    }
+
+    public void addLike(String like){
+        this.likes.add(like);
+    }
+
+    public void removeLike(String like){
+        this.likes.remove(like);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Recipe recipe = (Recipe) o;
-        return Objects.equals(id, recipe.id);
+        return Objects.equals(id, recipe.id) &&
+                Objects.equals(title, recipe.title) &&
+                Objects.equals(description, recipe.description) &&
+                Objects.equals(ingredients, recipe.ingredients) &&
+                Objects.equals(likes, recipe.likes) &&
+                Objects.equals(comments, recipe.comments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, title, description, ingredients, likes, comments);
     }
 
     @Override

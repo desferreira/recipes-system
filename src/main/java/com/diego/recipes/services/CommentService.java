@@ -19,5 +19,10 @@ public class CommentService {
         repository.deleteById(id);
     }
 
+    public Comment findById(String id){
+        return (repository.findById(id)).get();
+    }
+
+
 }
 

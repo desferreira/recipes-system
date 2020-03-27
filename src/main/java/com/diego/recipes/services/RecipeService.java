@@ -1,6 +1,8 @@
 package com.diego.recipes.services;
 
+import com.diego.recipes.models.Comment;
 import com.diego.recipes.models.Recipe;
+import com.diego.recipes.repositories.CommentRepository;
 import com.diego.recipes.repositories.RecipeRepository;
 import com.diego.recipes.repositories.exception.ResourceNotFound;
 import com.diego.recipes.repositories.exception.ResourceNotFoundHandler;
@@ -36,9 +38,9 @@ public class RecipeService {
     }
 
     public Recipe update(Recipe obj, String id){
-        Optional<Recipe> newObj = repository.findById(id);
-        updateData(newObj.get(), obj);
-        return repository.save(newObj.get());
+        Recipe newObj = (repository.findById(id)).get();
+        newObj = updateData(newObj, obj);
+        return repository.save(newObj);
     }
 
     public void delete(String id){
@@ -49,16 +51,56 @@ public class RecipeService {
         return repository.findByIngredients(ingredient);
     }
 
-    public List<Recipe> findByTitleOrDescription(String search){
+    public List<Recipe> findByTitle(String search){
         return repository.findByTitleContaining(search);
     }
 
-    public void updateData(Recipe newObj, Recipe obj){
+    public List<Recipe> findByDescription(String search){
+        return repository.findByDescriptionContaining(search);
+    }
+
+    public Recipe insertLike(String id, String userId){
+        Recipe actualRecipe = (repository.findById(id).get());
+        Recipe updatedRecipe = actualRecipe;
+        updatedRecipe.addLike(userId);
+        update(updatedRecipe, id);
+        return updatedRecipe;
+    }
+
+    public Recipe deleteLike(String id, String userId){
+        Recipe actualRecipe = (repository.findById(id).get());
+        Recipe updatedRecipe = actualRecipe;
+        updatedRecipe.removeLike(userId);
+        update(updatedRecipe, id);
+        return updatedRecipe;
+    }
+
+    public Recipe insertComment(String id, String message){
+        Recipe actualRecipe = (repository.findById(id).get());
+        Recipe updatedRecipe = actualRecipe;
+        Comment comment = new Comment(message);
+        updatedRecipe.addComment(comment);
+        update(updatedRecipe, id);
+        return updatedRecipe;
+    }
+
+    public Recipe deleteComment(String id, String commentId){
+        Recipe actualRecipe = (repository.findById(id).get());
+        Recipe updatedRecipe = actualRecipe;
+        Comment comment = new Comment();
+        comment.setId(commentId);
+        updatedRecipe.removeComment(comment);
+        update(updatedRecipe, id);
+        return updatedRecipe;
+    }
+
+    private Recipe updateData(Recipe newObj, Recipe obj){
         newObj.setTitle(obj.getTitle());
         newObj.setDescription(obj.getDescription());
         newObj.setIngredients(obj.getIngredients());
+        newObj.setLikes(obj.getLikes());
+        newObj.setComments(obj.getComments());
+        return newObj;
     }
-
-
 
 }
