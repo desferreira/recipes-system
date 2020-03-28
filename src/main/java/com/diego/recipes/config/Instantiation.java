@@ -1,11 +1,8 @@
 package com.diego.recipes.config;
 
-import com.diego.recipes.models.Comment;
-import com.diego.recipes.models.Recipe;
-import com.diego.recipes.repositories.CommentRepository;
+import com.diego.recipes.data.entity.Comment;
+import com.diego.recipes.data.entity.Recipe;
 import com.diego.recipes.repositories.RecipeRepository;
-import com.diego.recipes.services.CommentService;
-import com.diego.recipes.services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +20,8 @@ public class Instantiation implements CommandLineRunner {
 
         recipeRepository.deleteAll();
 
-        Recipe r1 = new Recipe("Feijao com arroz", "Um delicioso prato brasileiro", Arrays.asList("arroz", "feijao"), Arrays.asList());
-        Recipe r2 = new Recipe("Bolo de cenoura", "Um autentico bolo de cenoura com cobertura de chocolate", Arrays.asList("farinha de trigo", "ovo", "leite", "chocolate", "cenoura"), Arrays.asList());
+        Recipe r1 = new Recipe("Feijao com arroz", "Um delicioso prato brasileiro", Arrays.asList("arroz", "feijao"));
+        Recipe r2 = new Recipe("Bolo de cenoura", "Um autentico bolo de cenoura com cobertura de chocolate", Arrays.asList("farinha de trigo", "ovo", "leite", "chocolate", "cenoura"));
 
         Comment c1 = new Comment("Muito gostoso!");
         Comment c2 = new Comment("Ótimo!");
