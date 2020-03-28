@@ -1,4 +1,4 @@
-package com.diego.recipes.repositories.exception;
+package com.diego.recipes.exception;
 
 import java.io.Serializable;
 import java.time.Instant;

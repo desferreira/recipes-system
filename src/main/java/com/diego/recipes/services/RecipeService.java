@@ -2,15 +2,11 @@ package com.diego.recipes.services;
 
 import com.diego.recipes.models.Comment;
 import com.diego.recipes.models.Recipe;
-import com.diego.recipes.repositories.CommentRepository;
 import com.diego.recipes.repositories.RecipeRepository;
-import com.diego.recipes.repositories.exception.ResourceNotFound;
-import com.diego.recipes.repositories.exception.ResourceNotFoundHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -28,13 +24,8 @@ public class RecipeService {
     }
 
     public Recipe findById(String id) {
-        try {
-            Optional<Recipe> recipeById = repository.findById(id);
-            return recipeById.get();
-        } catch (NoSuchElementException e) {
-            throw new ResourceNotFound(id);
-
-        }
+        Optional<Recipe> recipeById = repository.findById(id);
+        return recipeById.get();
     }
 
     public Recipe update(Recipe obj, String id){
