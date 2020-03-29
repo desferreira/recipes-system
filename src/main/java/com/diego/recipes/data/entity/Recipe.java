@@ -43,26 +43,34 @@ public class Recipe implements Serializable {
         this.comments = new ArrayList<>();
     }
 
+    /**
+     * Método responsável por inserir um comentário na lista
+     * @param comment
+     */
     public void addComment(Comment comment){
         this.comments.add(comment);
     }
 
+    /**
+     * Método responsável por remover um comentário da lista
+     * @param comment
+     */
     public void removeComment(Comment comment){
         this.comments.remove(comment);
     }
 
-    public List<String> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<String> likes) {
-        this.likes = likes;
-    }
-
+    /**
+     * Método responsável por inserir um like na lista
+     * @param like
+     */
     public void addLike(String like){
         this.likes.add(like);
     }
 
+    /**
+     * Método responsável por remover um like da lista
+     * @param like
+     */
     public void removeLike(String like){
         this.likes.remove(like);
     }

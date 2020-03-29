@@ -24,6 +24,10 @@ public class Comment implements Serializable {
         this.comment = comment;
     }
 
+    /**
+     * Método responsável por gerar um ID aleatório para cada comentário
+     * @return Id do comentário
+     */
     private String generateId(){
         return UUID.randomUUID().toString();
     }
