@@ -4,11 +4,12 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class RecipeForm {
+public class RecipeForm implements Serializable {
 
     @Getter
     private String title;

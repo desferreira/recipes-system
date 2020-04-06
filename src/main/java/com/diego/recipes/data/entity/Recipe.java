@@ -1,6 +1,7 @@
 package com.diego.recipes.data.entity;
 
 
+import com.diego.recipes.data.form.RecipeForm;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -73,6 +74,13 @@ public class Recipe implements Serializable {
      */
     public void removeLike(String like){
         this.likes.remove(like);
+    }
+
+    public Recipe createFromRecipeForm(RecipeForm form){
+        this.description = form.getDescription();
+        this.title = form.getTitle();
+        this.ingredients = form.getIngredients();
+        return new Recipe(this.title, this.description, this.ingredients);
     }
 
 }

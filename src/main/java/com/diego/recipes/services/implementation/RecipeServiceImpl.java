@@ -4,7 +4,7 @@ import com.diego.recipes.data.entity.Comment;
 import com.diego.recipes.data.entity.Recipe;
 import com.diego.recipes.repositories.RecipeRepository;
 import com.diego.recipes.services.IRecipeService;
-import lombok.extern.slf4j.Slf4j;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +16,8 @@ public class RecipeServiceImpl implements IRecipeService {
 
     @Autowired
     private RecipeRepository repository;
+
+    private static final Logger logger = Logger.getLogger("RecipeServiceLogger");
 
 
     /**
@@ -32,6 +34,8 @@ public class RecipeServiceImpl implements IRecipeService {
      * @return Receita inserida
      */
     public Recipe insertRecipe(Recipe obj){
+        String log = String.format("Inserting the recipe %s in database", obj.toString());
+        logger.info(log);
         System.out.println(obj.toString());
         return repository.save(obj);
     }
@@ -42,6 +46,8 @@ public class RecipeServiceImpl implements IRecipeService {
      * @return
      */
     public Recipe findRecipeById(String id) {
+        String log = String.format("Searching the recipe with id %s in database", id);
+        logger.info(log);
         Optional<Recipe> recipeById = repository.findById(id);
         return recipeById.get();
     }
@@ -53,6 +59,8 @@ public class RecipeServiceImpl implements IRecipeService {
      * @return
      */
     public Recipe updateRecipe(Recipe obj, String id){
+        String log = String.format("Updating the recipe with id %s in database", id);
+        logger.info(log);
         Recipe newObj = (repository.findById(id)).get();
         newObj = updateMiddleObjectData(newObj, obj);
         return repository.save(newObj);
@@ -101,6 +109,8 @@ public class RecipeServiceImpl implements IRecipeService {
      * @return Receita atualizada com o like
      */
     public Recipe insertLikeInRecipe(String id, String userId){
+        String log = String.format("Inserting a like from the user %d in the recipe with id %s in database", userId, id);
+        logger.info(log);
         Recipe actualRecipe = (repository.findById(id).get());
         Recipe updatedRecipe = actualRecipe;
         updatedRecipe.addLike(userId);

@@ -4,6 +4,8 @@ import com.diego.recipes.data.entity.Recipe;
 import com.diego.recipes.data.form.CommentForm;
 import com.diego.recipes.data.form.RecipeForm;
 import com.diego.recipes.services.implementation.RecipeServiceImpl;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,7 +34,8 @@ public class RecipeController {
 
     @PostMapping
     public ResponseEntity<Recipe> insert(@RequestBody RecipeForm obj){
-        Recipe recipe = new Recipe(obj.getTitle(), obj.getDescription(), obj.getIngredients());
+        Recipe recipe = new Recipe();
+        recipe = recipe.createFromRecipeForm(obj);
         service.insertRecipe(recipe);
         return ResponseEntity.ok().body(recipe);
     }
